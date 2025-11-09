@@ -50,6 +50,18 @@ export default async function handler(
         updateData.purpose = validation.data.purpose
         changes.push('purpose updated')
       }
+      if (validation.data.status) {
+        updateData.status = validation.data.status
+        changes.push(`status updated to: ${validation.data.status}`)
+      }
+      if (validation.data.profitLoss !== undefined) {
+        updateData.profitLoss = validation.data.profitLoss
+        changes.push(`profit/loss: ${validation.data.profitLoss}`)
+      }
+      if (validation.data.reason) {
+        updateData.reason = validation.data.reason
+        changes.push('reason updated')
+      }
 
       const updated = await prisma.investment.update({
         where: { id: String(id) },

@@ -121,9 +121,9 @@ export default function MemberDashboard() {
             {payments.length === 0 ? (
               <p className="text-gray-600">কোনো পেমেন্ট নেই</p>
             ) : (
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto max-h-96 overflow-y-auto">
                 <table className="min-w-full">
-                  <thead>
+                  <thead className="sticky top-0 bg-white">
                     <tr className="border-b">
                       <th className="text-left py-2">তারিখ</th>
                       <th className="text-right py-2">পরিমাণ</th>
@@ -134,10 +134,10 @@ export default function MemberDashboard() {
                   <tbody>
                     {payments.map((payment) => (
                       <tr key={payment.id} className="border-b">
-                        <td className="py-2">{format(new Date(payment.date), 'dd/MM/yyyy')}</td>
-                        <td className="text-right">৳ {payment.amount}</td>
-                        <td>{payment.paymentFrom}</td>
-                        <td>{payment.transactionNumber || '-'}</td>
+                        <td className="py-2 text-black">{format(new Date(payment.date), 'dd/MM/yyyy')}</td>
+                        <td className="text-right text-black">৳ {payment.amount}</td>
+                        <td className="text-black">{payment.paymentFrom}</td>
+                        <td className="text-black">{payment.transactionNumber || '-'}</td>
                       </tr>
                     ))}
                   </tbody>
