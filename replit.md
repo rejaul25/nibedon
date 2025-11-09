@@ -8,6 +8,18 @@ The system provides comprehensive features including membership ID generation, p
 
 ## Recent Changes
 
+### November 9, 2025 - Email Support, Password Reset, and Investment Tracking
+- **Added optional email support**: User model now includes optional email field (unique, lowercase indexed)
+- **Implemented forgot password functionality** for both chairman and members with email-based tokens
+- **Created reset password page** with 1-hour token expiration and single-use enforcement
+- **Updated all registration and edit forms** to support optional email field with validation
+- **Enhanced Investment model** with profit/loss tracking, reason, and status fields
+- **Updated investment API endpoints** to handle profit/loss updates with audit logging
+- **Improved member dashboard UI**: Payment list now has scrollable view with sticky headers (max-h-96)
+- **Enhanced text visibility**: Added text-black classes across member dashboard for better readability
+- **Updated README.md** with comprehensive documentation of email and password reset features
+- **All changes architect-reviewed and approved** with no blocking defects
+
 ### November 9, 2025 - Critical Share Calculation Fix
 - **Fixed critical bug in share calculation formulas** that was multiplying the base amount (500 Taka) twice
 - **Old member formula corrected**: Now properly calculates as `(monthsPaid / totalShares) × 100` to return percentage (0-100%)
