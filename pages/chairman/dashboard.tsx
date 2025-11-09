@@ -341,6 +341,7 @@ function CreateMemberForm({ showMessage, onSuccess }: any) {
     name: '',
     fatherName: '',
     mobile: '',
+    email: '',
     password: '',
     shareType: 'newMember'
   })
@@ -420,6 +421,20 @@ function CreateMemberForm({ showMessage, onSuccess }: any) {
         </div>
 
         <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Email (Optional)</label>
+          <input
+            type="email"
+            value={formData.email}
+            onChange={(e) => setFormData({...formData, email: e.target.value})}
+            className="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-500"
+            placeholder="member@example.com"
+          />
+          <p className="text-xs text-gray-600 mt-1">
+            Required for password reset functionality
+          </p>
+        </div>
+
+        <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Password *</label>
           <input
             type="password"
@@ -461,7 +476,8 @@ function EditMemberModal({ member, onClose, onSuccess }: any) {
   const [formData, setFormData] = useState({
     name: member.name,
     fatherName: member.fatherName,
-    mobile: member.mobile
+    mobile: member.mobile,
+    email: member.email || ''
   })
   const [saving, setSaving] = useState(false)
 
@@ -519,6 +535,17 @@ function EditMemberModal({ member, onClose, onSuccess }: any) {
               value={formData.mobile}
               onChange={(e) => setFormData({...formData, mobile: e.target.value})}
               className="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Email (Optional)</label>
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              className="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-blue-500"
+              placeholder="member@example.com"
             />
           </div>
 
