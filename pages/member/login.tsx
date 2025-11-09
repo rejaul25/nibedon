@@ -94,6 +94,12 @@ export default function MemberLogin() {
 
             <div className="text-center space-y-2">
               <Link
+                href="/member/forgot-password"
+                className="block text-sm text-green-600 hover:underline"
+              >
+                পাসওয়ার্ড ভুলে গেছেন?
+              </Link>
+              <Link
                 href="/member/register"
                 className="block text-sm text-green-600 hover:underline"
               >

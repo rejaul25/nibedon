@@ -1,0 +1,41 @@
+
+**Chairman Functionality:**
+
+* The chairman should be able to generate a membership ID by entering the member’s name. The system should then generate a membership ID and save it in the database. Later, members should be able to register and log in using this membership ID. The chairman should also be able to access all member details using this ID. **Important:** Generating the ID alone is not enough; it must be saved in the database to validate users during registration and login.
+* While updating member information, all existing member data should load for editing. However, the membership ID must remain fixed and cannot be updated, though it should be visible.
+* When adding a new member, the chairman must enter the date.
+* Automatic payment should **not** occur when a new member is added. The chairman must manually add payments.
+* Single payment and bulk payment functionality (multiple memebr payment at the same time but input field are samw with individual payment form) is fine. Ensure that the input fields for both single and bulk payments are consistent and save data to the same database table.
+* Investment creation is fine. After adding an investment, when clicking on the investment card, an option should appear to indicate whether there is a profit or a loss. The system should allow updating this information and recording the reason for any loss to track the investment. After updating, clicking the investment card should display all details.
+* All actions by the chairman and users must be logged in the audit section with date and time.
+* When updating any information, all relevant data must load into the input fields as it was during the last save.
+
+**Note:** Make sure all input field text is black for visibility. Currently, some text is not visible in many places, so ensure all text is visible.
+
+---
+
+**Member Functionality:**
+
+* The user dashboard is fine. The payment list should display a maximum of 4–7 items; if there are more, a scrollbar should appear for better UI.
+* Members should be able to view all details added in the input fields by the organization. However, they cannot edit or update this information.
+* Users should be able to change their email accounts. However, if the email is already registered, it cannot be reused. This must be validated in the database.
+
+**Add Member Functionality:**
+
+* The chairman’s “add member” section remains as it is, but an **optional email input field** must be added.
+* The email field should also be added in the member registration form. Login functionality remains unchanged.
+
+---
+
+**Forgot Password Functionality:**
+
+* Clicking “Forgot Password” should open an input field prompting: **“Enter your email.”** Users must enter the email they used to register.
+* After entering the email and clicking the **Send** button, a password reset link should be sent to that email. Clicking the link should open a field to enter a new password. Upon submission, the password for that email account should be reset.
+* The password reset link must be validated against the database, and a unique URL should be sent each time.
+* **Very important:** Ensure the password reset functionality works correctly.
+
+---
+
+**UI Notes:**
+
+* All input fields and text should be visible. Use black text on cards or body sections with a white background to ensure maximum visibility. This issue must be fixed.

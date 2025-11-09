@@ -15,6 +15,7 @@ export const memberRegisterSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   fatherName: z.string().min(1, "Father's name is required"),
   mobile: z.string().regex(/^01[3-9]\d{8}$/, 'Invalid mobile number'),
+  email: z.string().email('Invalid email address').optional().or(z.literal('')),
   password: z.string().min(6, 'Password must be at least 6 characters'),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -27,6 +28,7 @@ export const createMemberSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   fatherName: z.string().min(1, "Father's name is required"),
   mobile: z.string().min(1, 'Mobile is required'),
+  email: z.string().email('Invalid email address').optional().or(z.literal('')),
   password: z.string().min(6, 'Password must be at least 6 characters'),
   shareType: z.enum(['fullShare', 'newMember']),
 })
@@ -35,6 +37,7 @@ export const updateMemberSchema = z.object({
   name: z.string().min(1).optional(),
   fatherName: z.string().min(1).optional(),
   mobile: z.string().min(1).optional(),
+  email: z.string().email('Invalid email address').optional().or(z.literal('')),
   password: z.string().min(6).optional(),
 })
 
@@ -67,10 +70,13 @@ export const updateInvestmentSchema = z.object({
   amount: z.number().min(0).optional(),
   date: z.string().optional(),
   purpose: z.string().min(1).optional(),
+  status: z.string().optional(),
+  profitLoss: z.number().optional(),
+  reason: z.string().optional(),
 })
 
 export const forgotPasswordSchema = z.object({
-  username: z.string().min(1, 'Username is required'),
+  email: z.string().email('Invalid email address'),
 })
 
 export const resetPasswordSchema = z.object({

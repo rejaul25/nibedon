@@ -27,6 +27,7 @@ async function main() {
       name,
       fatherName: 'N/A',
       mobile,
+      email,
       passwordHash,
       role: 'chairman',
     },

@@ -70,7 +70,7 @@ export default async function handler(
         return res.status(400).json({ error: validation.error.errors[0].message })
       }
 
-      const { membershipId, name, fatherName, mobile, password, shareType } = validation.data
+      const { membershipId, name, fatherName, mobile, email, password, shareType } = validation.data
 
       const membershipIdRecord = await prisma.membershipId.findUnique({
         where: { membershipId },
@@ -78,6 +78,15 @@ export default async function handler(
 
       if (!membershipIdRecord || membershipIdRecord.isDeleted || membershipIdRecord.assignedTo) {
         return res.status(400).json({ error: 'Invalid or already used membership ID' })
+      }
+
+      if (email && email.trim() !== '') {
+        const existingEmail = await prisma.user.findFirst({
+          where: { email: email.toLowerCase() },
+        })
+        if (existingEmail) {
+          return res.status(400).json({ error: 'Email already in use' })
+        }
       }
 
       const passwordHash = await bcrypt.hash(password, 10)
@@ -89,6 +98,7 @@ export default async function handler(
             name,
             fatherName,
             mobile,
+            email: email && email.trim() !== '' ? email.toLowerCase() : null,
             passwordHash,
             role: 'member',
             shareType,

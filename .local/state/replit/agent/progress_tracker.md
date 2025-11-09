@@ -7,7 +7,9 @@
     - Payments Tab (Create/Edit Payments)
     - Investments Tab (Create/Edit/Delete Investments)
     - Audit History Tab (View all chairman actions)
-[x] 6. Completed migration from Replit Agent to Replit environment
-[x] 7. Installed all npm dependencies (570 packages)
-[x] 8. Verified Next.js dev server running successfully on port 5000
-[x] 9. Confirmed project is fully operational and ready for use
+[x] 6. Updated Prisma schema with email field and investment profit/loss tracking
+[x] 7. Updated validation schemas to support email and investment updates
+[ ] 8. Create forgot password functionality for chairman and members
+[ ] 9. Update member registration and add member forms with email field
+[ ] 10. Fix all UI visibility issues
+[ ] 11. Implement remaining features and test thoroughly

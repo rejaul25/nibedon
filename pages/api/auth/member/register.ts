@@ -17,7 +17,7 @@ export default async function handler(
       return res.status(400).json({ error: validation.error.errors[0].message })
     }
 
-    const { membershipId, name, fatherName, mobile, password } = validation.data
+    const { membershipId, name, fatherName, mobile, email, password } = validation.data
 
     const membershipIdRecord = await prisma.membershipId.findUnique({
       where: { membershipId },
@@ -27,17 +27,28 @@ export default async function handler(
       return res.status(400).json({ error: 'Invalid or already used membership ID' })
     }
 
+    const whereConditions: any[] = [{ membershipId }, { mobile }]
+    
+    if (email && email.trim() !== '') {
+      whereConditions.push({ email: email.toLowerCase() })
+    }
+
     const existingUser = await prisma.user.findFirst({
       where: {
-        OR: [
-          { membershipId },
-          { mobile },
-        ],
+        OR: whereConditions,
       },
     })
 
     if (existingUser) {
-      return res.status(400).json({ error: 'Membership ID or mobile already in use' })
+      if (existingUser.membershipId === membershipId) {
+        return res.status(400).json({ error: 'Membership ID already in use' })
+      }
+      if (existingUser.mobile === mobile) {
+        return res.status(400).json({ error: 'Mobile number already in use' })
+      }
+      if (email && existingUser.email?.toLowerCase() === email.toLowerCase()) {
+        return res.status(400).json({ error: 'Email already in use' })
+      }
     }
 
     const passwordHash = await bcrypt.hash(password, 10)
@@ -49,6 +60,7 @@ export default async function handler(
           name,
           fatherName,
           mobile,
+          email: email && email.trim() !== '' ? email.toLowerCase() : null,
           passwordHash,
           role: 'member',
           shareType: 'newMember',

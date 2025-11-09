@@ -28,7 +28,7 @@ export default async function handler(
     const user = await prisma.user.findFirst({
       where: {
         email: email.toLowerCase(),
-        role: 'chairman',
+        role: 'member',
         isDeleted: false,
       },
     })
