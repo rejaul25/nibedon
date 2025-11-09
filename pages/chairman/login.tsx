@@ -1,39 +1,39 @@
-import { useState } from 'react'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { useState } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function ChairmanLogin() {
-  const router = useRouter()
-  const [formData, setFormData] = useState({ username: '', password: '' })
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const router = useRouter();
+  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
     try {
-      const res = await fetch('/api/auth/chairman/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/auth/chairman/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      })
+      });
 
-      const data = await res.json()
+      const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || 'Login failed')
+        throw new Error(data.error || "Login failed");
       }
 
-      router.push('/chairman/dashboard')
+      router.push("/chairman/dashboard");
     } catch (err: any) {
-      setError(err.message)
+      setError(err.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <>
@@ -61,8 +61,10 @@ export default function ChairmanLogin() {
               <input
                 type="text"
                 value={formData.username}
-                onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                onChange={(e) =>
+                  setFormData({ ...formData, username: e.target.value })
+                }
+                className="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
             </div>
@@ -74,8 +76,10 @@ export default function ChairmanLogin() {
               <input
                 type="password"
                 value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+                className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
             </div>
@@ -85,11 +89,14 @@ export default function ChairmanLogin() {
               disabled={loading}
               className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:bg-blue-400"
             >
-              {loading ? 'Logging in...' : 'Login'}
+              {loading ? "Logging in..." : "Login"}
             </button>
 
             <div className="text-center">
-              <Link href="/chairman/forgot-password" className="text-sm text-blue-600 hover:underline">
+              <Link
+                href="/chairman/forgot-password"
+                className="text-sm text-blue-600 hover:underline"
+              >
                 Forgot Password?
               </Link>
             </div>
@@ -103,5 +110,5 @@ export default function ChairmanLogin() {
         </div>
       </div>
     </>
-  )
+  );
 }

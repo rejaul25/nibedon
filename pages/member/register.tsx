@@ -1,53 +1,53 @@
-import { useState } from 'react'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { useState } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function MemberRegister() {
-  const router = useRouter()
+  const router = useRouter();
   const [formData, setFormData] = useState({
-    membershipId: '',
-    name: '',
-    fatherName: '',
-    mobile: '',
-    password: '',
-    confirmPassword: '',
-  })
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+    membershipId: "",
+    name: "",
+    fatherName: "",
+    mobile: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
+    e.preventDefault();
+    setError("");
 
     if (formData.password !== formData.confirmPassword) {
-      setError('পাসওয়ার্ড মিলছে না')
-      return
+      setError("পাসওয়ার্ড মিলছে না");
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
 
     try {
-      const res = await fetch('/api/auth/member/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/auth/member/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      })
+      });
 
-      const data = await res.json()
+      const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || 'Registration failed')
+        throw new Error(data.error || "Registration failed");
       }
 
-      alert('নিবন্ধন সফল হয়েছে! এখন লগইন করুন।')
-      router.push('/member/login')
+      alert("নিবন্ধন সফল হয়েছে! এখন লগইন করুন।");
+      router.push("/member/login");
     } catch (err: any) {
-      setError(err.message)
+      setError(err.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <>
@@ -76,8 +76,10 @@ export default function MemberRegister() {
                 <input
                   type="text"
                   value={formData.membershipId}
-                  onChange={(e) => setFormData({ ...formData, membershipId: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  onChange={(e) =>
+                    setFormData({ ...formData, membershipId: e.target.value })
+                  }
+                  className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   required
                 />
               </div>
@@ -89,8 +91,10 @@ export default function MemberRegister() {
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   required
                 />
               </div>
@@ -102,8 +106,10 @@ export default function MemberRegister() {
                 <input
                   type="text"
                   value={formData.fatherName}
-                  onChange={(e) => setFormData({ ...formData, fatherName: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  onChange={(e) =>
+                    setFormData({ ...formData, fatherName: e.target.value })
+                  }
+                  className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   required
                 />
               </div>
@@ -115,9 +121,11 @@ export default function MemberRegister() {
                 <input
                   type="tel"
                   value={formData.mobile}
-                  onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, mobile: e.target.value })
+                  }
                   placeholder="01XXXXXXXXX"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   required
                 />
               </div>
@@ -129,8 +137,10 @@ export default function MemberRegister() {
                 <input
                   type="password"
                   value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
+                  className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   required
                   minLength={6}
                 />
@@ -143,8 +153,13 @@ export default function MemberRegister() {
                 <input
                   type="password"
                   value={formData.confirmPassword}
-                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      confirmPassword: e.target.value,
+                    })
+                  }
+                  className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   required
                   minLength={6}
                 />
@@ -156,14 +171,20 @@ export default function MemberRegister() {
               disabled={loading}
               className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition disabled:bg-green-400"
             >
-              {loading ? 'নিবন্ধন হচ্ছে...' : 'নিবন্ধন করুন'}
+              {loading ? "নিবন্ধন হচ্ছে..." : "নিবন্ধন করুন"}
             </button>
 
             <div className="text-center space-y-2">
-              <Link href="/member/login" className="block text-sm text-green-600 hover:underline">
+              <Link
+                href="/member/login"
+                className="block text-sm text-green-600 hover:underline"
+              >
                 ইতিমধ্যে অ্যাকাউন্ট আছে? লগইন করুন
               </Link>
-              <Link href="/" className="block text-sm text-gray-600 hover:underline">
+              <Link
+                href="/"
+                className="block text-sm text-gray-600 hover:underline"
+              >
                 ← হোমে ফিরে যান
               </Link>
             </div>
@@ -171,5 +192,5 @@ export default function MemberRegister() {
         </div>
       </div>
     </>
-  )
+  );
 }

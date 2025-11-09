@@ -1,39 +1,39 @@
-import { useState } from 'react'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { useState } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function MemberLogin() {
-  const router = useRouter()
-  const [formData, setFormData] = useState({ membershipId: '', password: '' })
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const router = useRouter();
+  const [formData, setFormData] = useState({ membershipId: "", password: "" });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
     try {
-      const res = await fetch('/api/auth/member/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/auth/member/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      })
+      });
 
-      const data = await res.json()
+      const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || 'Login failed')
+        throw new Error(data.error || "Login failed");
       }
 
-      router.push('/member/dashboard')
+      router.push("/member/dashboard");
     } catch (err: any) {
-      setError(err.message)
+      setError(err.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <>
@@ -61,8 +61,10 @@ export default function MemberLogin() {
               <input
                 type="text"
                 value={formData.membershipId}
-                onChange={(e) => setFormData({ ...formData, membershipId: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                onChange={(e) =>
+                  setFormData({ ...formData, membershipId: e.target.value })
+                }
+                className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 required
               />
             </div>
@@ -74,8 +76,10 @@ export default function MemberLogin() {
               <input
                 type="password"
                 value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+                className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 required
               />
             </div>
@@ -85,14 +89,20 @@ export default function MemberLogin() {
               disabled={loading}
               className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition disabled:bg-green-400"
             >
-              {loading ? 'লগইন হচ্ছে...' : 'লগইন'}
+              {loading ? "লগইন হচ্ছে..." : "লগইন"}
             </button>
 
             <div className="text-center space-y-2">
-              <Link href="/member/register" className="block text-sm text-green-600 hover:underline">
+              <Link
+                href="/member/register"
+                className="block text-sm text-green-600 hover:underline"
+              >
                 নতুন সদস্য নিবন্ধন করুন
               </Link>
-              <Link href="/" className="block text-sm text-gray-600 hover:underline">
+              <Link
+                href="/"
+                className="block text-sm text-gray-600 hover:underline"
+              >
                 ← হোমে ফিরে যান
               </Link>
             </div>
@@ -100,5 +110,5 @@ export default function MemberLogin() {
         </div>
       </div>
     </>
-  )
+  );
 }
