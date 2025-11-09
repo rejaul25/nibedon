@@ -66,6 +66,7 @@
 // }
 
 import type { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "@/lib/prisma";
 import { generateToken } from "@/lib/jwt";
 import { setAuthCookie } from "@/lib/auth";
 import { chairmanLoginSchema } from "@/lib/validation";
@@ -79,7 +80,6 @@ export default async function handler(
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  // Optional: temporarily disable rate limiter for debugging
   if (!rateLimit(req, res)) return;
 
   try {
@@ -107,10 +107,22 @@ export default async function handler(
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    // Generate JWT token
+    // Fetch the chairman user from the database to get the actual user ID
+    const chairmanUser = await prisma.user.findFirst({
+      where: {
+        role: "chairman",
+        isDeleted: false,
+      },
+    });
+
+    if (!chairmanUser) {
+      return res.status(500).json({ error: "Chairman account not found in database" });
+    }
+
+    // Generate JWT token with the actual database user ID
     const token = generateToken({
-      userId: "chairman", // you can use a fixed id or any unique value
-      membershipId: chairmanUsername,
+      userId: chairmanUser.id,
+      membershipId: chairmanUser.membershipId,
       role: "chairman",
     });
 
@@ -119,9 +131,9 @@ export default async function handler(
 
     return res.status(200).json({
       user: {
-        id: "chairman",
-        name: "Chairman",
-        membershipId: chairmanUsername,
+        id: chairmanUser.id,
+        name: chairmanUser.name,
+        membershipId: chairmanUser.membershipId,
         role: "chairman",
       },
     });
